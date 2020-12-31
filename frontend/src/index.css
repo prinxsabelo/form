@@ -1,0 +1,11 @@
+.modal {
+  transition: opacity 0.25s ease;
+}
+body.modal-active {
+  overflow-x: hidden;
+  overflow-y: hidden !important;
+}
+.formlist{
+  max-height: 75vh;
+    
+}
