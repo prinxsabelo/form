@@ -5,7 +5,81 @@ body.modal-active {
   overflow-x: hidden;
   overflow-y: hidden !important;
 }
-.formlist{
-  max-height: 75vh;
-    
+
+.slide-in-left-enter {
+  transform: translateX(-100%);
+}
+
+.slide-in-left-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 400ms;
+}
+
+.slide-in-left-exit {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.slide-in-left-exit-active {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all 400ms;
+}
+
+
+.slide-in-right-enter {
+  transform: translateX(100%);
+}
+
+.slide-in-right-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 400ms;
+}
+
+.slide-in-right-exit {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.slide-in-right-exit-active {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 400ms;
+}
+
+.form-list{
+  max-height: 75vh;  
+  overflow-y: scroll;
+}
+.q-list{
+  max-height: 88vh;  
+  overflow-y: auto;
+}
+@media only screen and (max-width: 600px) {
+  .q-list{
+    max-height: 84vh;  
+    overflow-y: auto;
+  }
+}
+.build{
+  height: 80vh;
+}
+.q-item:hover .q-actions{
+  transition: opacity 0.3s;
+  -webkit-transition: opacity 0.3s;
+  opacity: 1;
+}
+.question-textarea {
+  min-height:12vh;
+  
+}
+.min-h-12 {
+  min-height: 3rem;
+  overflow: auto;
+}
+
+textarea{
+  height: 15vh;
 }

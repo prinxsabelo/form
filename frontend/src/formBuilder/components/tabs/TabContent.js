@@ -1,11 +1,14 @@
+
 import { Route, useRouteMatch } from "react-router-dom";
-import Build from "../../pages/Build";
+import DesktopBuild from "../../pages/DesktopBuild";
+import Questions from "../../pages/Questions";
 import Results from "../../pages/Results";
 import Settings from "../../pages/Settings";
 import Share from "../../pages/Share";
 
 
 const TabContent = (props) => {
+
     const { url } = useRouteMatch();
 
     return (
@@ -14,10 +17,13 @@ const TabContent = (props) => {
             <div className="tab-pane active">
 
                 <Route path={`${url}`} exact >
-                    <Build />
+                    <DesktopBuild />
+                </Route>
+                <Route path={`${url}/questions`} exact>
+                    <Questions />
                 </Route>
                 <Route path={`${url}/build`} exact>
-                    <Build />
+                    <DesktopBuild />
                 </Route>
                 <Route path={`${url}/share`} exact>
                     <Share />

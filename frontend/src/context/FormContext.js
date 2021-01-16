@@ -15,7 +15,7 @@ const FormContextProvider = (props) => {
     }
     const addForm = () => {
         setModalContent({
-            header: 'Create form',
+            header: 'Create Form',
             placeholder: 'Give your form a name',
             type: "form",
             className: `fixed bg-white 
