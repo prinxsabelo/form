@@ -5,6 +5,7 @@ import { ViewportContext } from "../../context/ViewportContext";
 import { useContext } from "react";
 import TabContent from "../components/tabs/TabContent";
 import QuestionList from "../questions/components/QuestionList";
+import NavBar from "../../shared/wrapper/NavBar";
 const FormBuilder = () => {
     let { formId } = useParams();
     const { width } = useContext(ViewportContext);
@@ -46,7 +47,9 @@ const FormBuilder = () => {
                         <div className="bg-gray-100 flex-auto">xxx</div>
                     </header>
                     <main className="flex w-full  mt-1 px-1 absolute top-16 bottom-0 ">
+
                         <div className="w-1/3 " >
+
                             <QuestionList />
                         </div>
                         <div className="flex-auto bg-gray-100">
@@ -64,6 +67,9 @@ const FormBuilder = () => {
                     <main>
                         <TabContent />
                     </main>
+                    <footer>
+                        <NavBar />
+                    </footer>
                 </div>
             )}
         </>

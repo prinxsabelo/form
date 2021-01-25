@@ -7,9 +7,9 @@ import Drawer from "../../shared/collection/Drawer";
 import Button from "../../shared/collection/Button";
 
 const FormLabel = (props) => {
-    const { drawerIsOpen, setDrawerIsOpen, setQTypeAction, } = useContext(QuestionContext);
+    const { drawerIsOpen, setDrawerIsOpen, setTypeAction, } = useContext(QuestionContext);
     const openDrawer = () => {
-        setQTypeAction("new");
+        setTypeAction("new");
 
         setDrawerIsOpen(true);
     };

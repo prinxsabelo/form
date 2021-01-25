@@ -3,18 +3,24 @@ import { NavLink, useParams, useRouteMatch } from "react-router-dom";
 
 import { QuestionContext } from "../../../context/QuestionContext";
 import QTypeIcon from "../../../shared/collection/QTypeIcon";
-const QuestionItem = ({ questionId, title, index, type, qType }) => {
+const QuestionItem = ({ questionId, title, index, type }) => {
     const { showQuestion } = useContext(QuestionContext);
     const { formId } = useParams();
     const { url } = useRouteMatch();
+
     return (
         <>
             <div
-                className="hidden md:flex q-item px-4 text-sm rounded m-2 shadow  whitespace-no-wrap min-h-12 items-center
-             border-2 cursor-pointer justify-between break-words relative"
+                className="hidden md:flex q-item text-sm pr-2 rounded m-2 shadow  whitespace-no-wrap min-h-12 items-center
+                border-2 cursor-pointer justify-between break-words relative"
             >
-                <div onClick={() => showQuestion(formId, questionId)} className="w-full py-3">
-                    {title}
+                <div onClick={() => showQuestion(formId, questionId, type)} className="w-full py-1 flex items-center">
+                    <div className="px-1 mr-1 ">
+                        <QTypeIcon type={type} />
+                    </div>
+                    <div>
+                        {title}
+                    </div>
                 </div>
                 <div className=" q-actions opacity-0 bg-gray-200 w-18 flex absolute top-0 bottom-0 right-0  items-center space-x-4 px-2">
                     <div className="bg-gray-100 p-1 rounded-full" onClick={() => alert('copy')}>
@@ -29,11 +35,12 @@ const QuestionItem = ({ questionId, title, index, type, qType }) => {
                     </div>
                 </div>
             </div>
+
             <div className="md:hidden">
                 <div className="flex items-center my-1 border-b-2 shadow space-x-1 w-full text-sm font-medium">
                     <NavLink className="flex items-center w-11/12" to={`${url}/${questionId}`}>
                         <div className="flex bg-gray-200 p-2 m-1 rounded-full h-10 w-10 ">
-                            <QTypeIcon type={qType.type} />
+                            <QTypeIcon type={type} />
                         </div>
                         <div className=" py-4 px-1 ">{title}</div>
                     </NavLink>

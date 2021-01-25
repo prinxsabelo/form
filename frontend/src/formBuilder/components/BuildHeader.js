@@ -3,25 +3,33 @@ import Button from "../../shared/collection/Button"
 
 import { QuestionContext } from "../../context/QuestionContext";
 import Drawer from "../../shared/collection/Drawer";
+import QTypeIcon from "../../shared/collection/QTypeIcon";
 const BuildHeader = ({ type, children }) => {
-
-    const { drawerIsOpen, setDrawerIsOpen, setQTypeAction, questionTypes, useQType, setUseQType } = useContext(QuestionContext);
-    let qType = questionTypes.find(qt => qt.type === type);
+    // console.log(type);
+    const { drawerIsOpen, setDrawerIsOpen, setTypeAction, questionTypes, currentType, setCurrentType } = useContext(QuestionContext);
+    const qType = questionTypes.find(qt => qt.type === type);
 
     const openDrawer = () => {
-        if (!useQType.type && qType.type) {
-            setUseQType({ type: qType.type })
+        if (!currentType && qType.type) {
+            setCurrentType(qType.type)
         }
         setDrawerIsOpen(true);
-        setQTypeAction("edit");
+        setTypeAction("edit");
 
     };
 
     return (
-        <div className="flex justify-between md:justify-end md:-mr-4 p-1 bg-gray-100 w-full md:w-2/3 text-right">
+        <div className="flex justify-end  p-1 bg-gray-100 w-full md:w-2/3 text-right">
+
             {qType &&
                 <Button onClick={openDrawer}>
-                    {qType.label}
+                    <span className="flex items-center">
+                        <div className="px-1 mr-1 ">
+                            <QTypeIcon type={qType.type} />
+                        </div>
+                        {qType.label}
+                    </span>
+
                 </Button>
             }
             {children}
