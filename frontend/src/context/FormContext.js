@@ -11,7 +11,7 @@ const FormContextProvider = (props) => {
         e.preventDefault();
         setTitle("");
         setShowModal(false);
-        setForms([...forms, { title, date: "Nov 20, 2020", formId: uuid(), response: 0 }])
+        setForms([...forms, { title, updated_at: "Nov 20, 2020", form_id: uuid(), response: 0 }])
     }
     const addForm = () => {
         setModalContent({
@@ -24,9 +24,9 @@ const FormContextProvider = (props) => {
         });
         setShowModal(true);
     }
-    const editForm = (title, formId) => {
+    const editForm = (title, form_id) => {
 
-        let formIndex = forms.findIndex(f => f.formId === formId);
+        let formIndex = forms.findIndex(f => f.form_id === form_id);
         if (formIndex !== -1) {
             forms[formIndex].title = title;
             setForms(forms);
@@ -34,18 +34,18 @@ const FormContextProvider = (props) => {
 
     }
     const [forms, setForms] = useState([
-        { formId: '1', title: "Black cofee game", response: 5, date: "Dec 25, 2020" },
-        { formId: '2', title: "Danegrous introduction", response: 5, date: "Jan 1, 2021" },
-        { formId: '3', title: "Reconsider Baby", response: 9, date: "OCt 21, 1997" },
-        { formId: '4', title: "Dirty for you beyond", response: 8, date: "May 11, 2007" },
-        { formId: '5', title: "Starting Introducion", response: 10, date: "Jun 11, 3007" },
-        { formId: '6', title: "Tell visual fault", response: 7, date: "Feb 13, 2000" },
-        { formId: '7', title: "Sleep and worried", response: 3, date: "Nov 11, 2003" },
-        { formId: '8', title: "My thoughts", response: 9, date: "Sep 11, 2002" },
-        { formId: '9', title: "Wetin dey xup", response: 4, date: "Jan 23, 2004" },
-        { formId: '10', title: "Dirty for you beyond", response: 8, date: "May 11, 2007" },
-        { formId: '11', title: "Starting Introducion", response: 10, date: "Jun 11, 3007" },
-        { formId: '12', title: "Tell visual fault", response: 7, date: "Feb 13, 2000" },
+        { form_id: '1', title: "Black cofee game", response: 5, updated_at: "Dec 25, 2020" },
+        { form_id: '2', title: "Danegrous introduction", response: 5, updated_at: "Jan 1, 2021" },
+        { form_id: '3', title: "Reconsider Baby", response: 9, updated_at: "OCt 21, 1997" },
+        { form_id: '4', title: "Dirty for you beyond", response: 8, updated_at: "May 11, 2007" },
+        { form_id: '5', title: "Starting Introducion", response: 10, updated_at: "Jun 11, 3007" },
+        { form_id: '6', title: "Tell visual fault", response: 7, updated_at: "Feb 13, 2000" },
+        { form_id: '7', title: "Sleep and worried", response: 3, updated_at: "Nov 11, 2003" },
+        { form_id: '8', title: "My thoughts", response: 9, updated_at: "Sep 11, 2002" },
+        { form_id: '9', title: "Wetin dey xup", response: 4, updated_at: "Jan 23, 2004" },
+        { form_id: '10', title: "Dirty for you beyond", response: 8, updated_at: "May 11, 2007" },
+        { form_id: '11', title: "Starting Introducion", response: 10, updated_at: "Jun 11, 3007" },
+        { form_id: '12', title: "Tell visual fault", response: 7, updated_at: "Feb 13, 2000" },
     ]);
     return <FormContext.Provider value={{ addForm, editForm, forms, title, setTitle, submitForm }}>
         {props.children}

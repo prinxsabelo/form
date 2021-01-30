@@ -15,7 +15,7 @@ const FormLabel = (props) => {
     }
     const submitForm = e => {
         e.preventDefault();
-        editForm(title, formId);
+        editForm(title, form_id);
     }
     const addQuestion = () => {
         drawerIsOpen
@@ -32,9 +32,9 @@ const FormLabel = (props) => {
         setDrawerIsOpen(false);
     };
     const { forms, editForm } = useContext(FormContext);
-    let { formId } = useParams();
+    let { form_id } = useParams();
 
-    const form = forms.find(f => f.formId === formId);
+    const form = forms.find(f => f.form_id === form_id);
     const [title, setTitle] = useState(form.title);
     let buildCheck = false;
     if (window.location.pathname.search("build") !== -1) {
@@ -86,7 +86,7 @@ const FormLabel = (props) => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                 </svg>
                             </button>
-                            <Drawer show={drawerIsOpen} action="new" formId={formId} />
+                            <Drawer show={drawerIsOpen} action="new" form_id={form_id} />
 
                             {drawerIsOpen && <Backdrop onClick={closeDrawer} />}
 

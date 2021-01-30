@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import Button from "../../shared/collection/Button"
 
-import { QuestionContext } from "../../context/QuestionContext";
 import Drawer from "../../shared/collection/Drawer";
 import QTypeIcon from "../../shared/collection/QTypeIcon";
+import { Payload } from "../../context/Payload";
 const BuildHeader = ({ type, children }) => {
     // console.log(type);
-    const { drawerIsOpen, setDrawerIsOpen, setTypeAction, questionTypes, currentType, setCurrentType } = useContext(QuestionContext);
+    const { drawerIsOpen, setDrawerIsOpen, setTypeAction, questionTypes, currentType, setCurrentType } = useContext(Payload);
     const qType = questionTypes.find(qt => qt.type === type);
 
     const openDrawer = () => {

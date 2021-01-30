@@ -1,40 +1,28 @@
+import MultipleType from "./types/MultipleType";
+import SingleType from "./types/SingleType";
+import StarType from "./types/StarType";
+import TextType from "./types/TextType";
+import YNType from "./types/YNType";
+
 const QuestionType = (props) => {
-    const { type, questionId } = props;
-    console.log(questionId);
+    const { type } = props;
+
     return (
         <div className="flex justify-center w-full mt-2">
             {
-                type === "TEXT" &&
-                <div>
-                    OPEN TEXT
-                    <div>
-                        <input className="border border-red-400" />
-                    </div>
-                </div>
+                type === "TEXT" && <TextType {...props} />
             }
             {
-                type === "SINGLE" &&
-                <div>
-
-                    SINGLE CHOICE
-                </div>
+                type === "SINGLE" && <SingleType {...props} />
             }
             {
-                type === "MULTIPLE" &&
-                <div>
-                    MULTIPLE CHOICE
-                </div>
+                type === "MULTIPLE" && <MultipleType  {...props} />
             }
             {
-                type === "STAR" &&
-                <div>
-                    STAR
-                </div>
+                type === "STAR" && <StarType {...props} />
             }
-            {type === "YN" &&
-                <div>
-                    YN
-                </div>
+            {
+                type === "YN" && <YNType {...props} />
             }
         </div>
     )

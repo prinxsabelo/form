@@ -1,27 +1,29 @@
 import { useState, createContext } from "react";
+
 export const QuestionContext = createContext();
+
 const QuestionContextProvider = (props) => {
 
 
     const [questions, setQuestions] = useState(
         [
-            { questionId: '1', formId: '1', title: "Tell me if i'm fucked, cos mmyy love for you is extralalmdmdm iiir.", type: 'TEXT' },
-            { questionId: '2', formId: '1', title: "Miamixxxxxxxxxx?", type: 'TEXT' },
-            // { questionId: '3', formId: '1', title: "Miami fallinf got midnight?", type: 'TEXT' },
-            // { questionId: '4', formId: '1', title: "I be your puff daddy?", type: 'TEXT' },
-            // { questionId: '5', formId: '1', title: "Turn up for me tonight?", type: 'TEXT' },
-            // { questionId: '6', formId: '1', title: "Jealous?", type: 'TEXT' },
-            // { questionId: '7', formId: '1', title: "Aware i love you at all", type: 'TEXT' },
-            // { questionId: '8', formId: '1', title: "Do you need my drama?", type: 'TEXT' },
-            // { questionId: '9', formId: '1', title: "What's your shell about me?", type: 'TEXT' },
-            // { questionId: '10', formId: '1', title: "What's your mission?", type: 'TEXT' },
-            // { questionId: '11', formId: '1', title: "Fallig for my love?", type: 'TEXT' },
-            // { questionId: '12', formId: '1', title: "Do i got your back?", type: 'TEXT' },
-            // { questionId: '13', formId: '1', title: "Can i get drama?", type: 'TEXT' },
-            // { questionId: '14', formId: '1', title: "I be your puff daddy?", type: 'TEXT' },
-            // { questionId: '15', formId: '1', title: "Turn up for me tonight?", type: 'TEXT' },
-            // { questionId: '16', formId: '1', title: "Jealous?", type: 'TEXT' },
-            // { questionId: '17', formId: '1', title: "Aware i love you at all", type: 'TEXT' },
+            { q_id: '1', form_id: '1', title: "Tell me if i'm fucked.", type: 'TEXT' },
+            { q_id: '2', form_id: '1', title: "Miamixxxxxxxxxx?", type: 'TEXT' },
+            // { q_id: '3', form_id: '1', title: "Miami fallinf got midnight?", type: 'TEXT' },
+            // { q_id: '4', form_id: '1', title: "I be your puff daddy?", type: 'TEXT' },
+            // { q_id: '5', form_id: '1', title: "Turn up for me tonight?", type: 'TEXT' },
+            // { q_id: '6', form_id: '1', title: "Jealous?", type: 'TEXT' },
+            // { q_id: '7', form_id: '1', title: "Aware i love you at all", type: 'TEXT' },
+            // { q_id: '8', form_id: '1', title: "Do you need my drama?", type: 'TEXT' },
+            // { q_id: '9', form_id: '1', title: "What's your shell about me?", type: 'TEXT' },
+            // { q_id: '10', form_id: '1', title: "What's your mission?", type: 'TEXT' },
+            // { q_id: '11', form_id: '1', title: "Fallig for my love?", type: 'TEXT' },
+            // { q_id: '12', form_id: '1', title: "Do i got your back?", type: 'TEXT' },
+            // { q_id: '13', form_id: '1', title: "Can i get drama?", type: 'TEXT' },
+            // { q_id: '14', form_id: '1', title: "I be your puff daddy?", type: 'TEXT' },
+            // { q_id: '15', form_id: '1', title: "Turn up for me tonight?", type: 'TEXT' },
+            // { q_id: '16', form_id: '1', title: "Jealous?", type: 'TEXT' },
+            // { q_id: '17', form_id: '1', title: "Aware i love you at all", type: 'TEXT' },
         ]
     );
 
@@ -36,12 +38,12 @@ const QuestionContextProvider = (props) => {
     const [currentType, setCurrentType] = useState("");
     const [typeAction, setTypeAction] = useState("");
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
-    const [questionDetail, setQuestionDetail] = useState({ formId: null, questionId: null });
+    const [questionDetail, setQuestionDetail] = useState({ form_id: null, q_id: null });
 
     //ShowQuestion function works only on desktop..
-    const showQuestion = (formId, questionId, type) => {
-        console.log(formId, questionId, type);
-        setQuestionDetail({ formId, questionId });
+    const showQuestion = (form_id, q_id, type) => {
+        console.log(form_id, q_id, type);
+        setQuestionDetail({ form_id, q_id });
         let questionType = questionTypes.find(q => q.type === type);
         setCurrentType(questionType.type);
         setTypeAction("edit");
@@ -50,7 +52,7 @@ const QuestionContextProvider = (props) => {
     // Develop questions works on both mobile and desktop.. Sending data to db..
     const developQuestion = qn => {
         // console.log(qn);
-        const q = questions.map(q => q.questionId === qn.questionId ? qn : q);
+        const q = questions.map(q => q.q_id === qn.q_id ? qn : q);
         setQuestions(q);
     }
     const addQuestion = type => {

@@ -1,80 +1,73 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, useHistory, } from "react-router-dom";
-import { QuestionContext } from "../../context/QuestionContext";
-import Button from "../../shared/collection/Button";
-import BuildHeader from "../components/BuildHeader";
+import { useParams } from "react-router-dom";
+import { Payload } from "../../context/Payload";
 import FormLabel from "../components/FormLabel";
-import QuestionType from "../questions/components/QuestionType";
+import BuildHeader from "../components/BuildHeader";
+import Button from "../../shared/collection/Button";
 
 const MobileBuild = () => {
-    let history = useHistory();
-    const { questions, currentType, setCurrentType, developQuestion } = useContext(QuestionContext);
-    let { formId, questionId } = useParams();
 
-    //Fetch Question through formId and questionId
-    // setQuestions should function when submit button is availble..
-    let q = (questions.find(x => x.formId === formId && x.questionId === questionId));
-    const [question, setQuestion] = useState({ questionId: "", formId: "", title: "", type: "" });
+    const { form, setForm, getForm, developQuestion } = useContext(Payload);
+    let { form_id, q_id } = useParams();
 
-    const changeHandler = e => {
-        let { questionId, formId, type } = q;
-        developQuestion({ title: e.target.value, questionId, formId, type });
-    }
+    const [question, setQuestion] = useState();
     useEffect(() => {
-        if (q) {
+        if (!form) {
+            getForm(form_id);
+        }
+        if (form && form.questions) {
+            let q = (form.questions.find(x => x.q_id === q_id));
             setQuestion(q);
         }
-        if (currentType) {
-            setQuestion(q => ({ ...q, type: currentType }));
-            let { questionId, formId, title } = q;
-            if (q.type !== currentType) {
-                developQuestion({ title, questionId, formId, type: currentType });
-            }
-        }
+    }, [q_id, form_id, form, setForm, getForm]);
 
-    }, [currentType, setQuestion, q, setCurrentType, developQuestion])
+    const changeHandler = e => {
+        const { q_id, properties, type } = question;
+        console.log(q_id);
+        // Check locally.. until save..
+        setQuestion({ title: e.target.value, q_id, type, properties })
 
-
-
+    }
+    const saveQuestion = (q) => {
+        console.log(q);
+        developQuestion(q);
+        // developQuestion({ title: e.target.value, q_id, type, properties });
+    }
     return (
         <>
+            <header>
+                <FormLabel />
+            </header>
+            {question && question.type ?
+                <main>
 
-            <>
-                <header>
-                    <FormLabel />
-                </header>
-                {question.type ?
-                    <main>
-
-                        <BuildHeader {...question}  >
-                            <Button onClick={() => history.goBack()}>
-                                <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                </svg>
-                            </Button>
-                        </BuildHeader>
-                        <div className="w-full bg-white h-5/6  flex justify-center
+                    <BuildHeader {...question}  >
+                        <Button onClick={() => saveQuestion(question)}>
+                            <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                        </Button>
+                    </BuildHeader>
+                    <div className="w-full bg-white h-5/6  flex justify-center
                                                 px-1 shadow rounded  relative">
-                            <form className="flex flex-col space-y-6 w-full ">
-                                <textarea className="p-2 border w-full text-base rounded-md question-textarea
+                        <form className="flex flex-col space-y-6 w-full ">
+                            <textarea className="p-2 border w-full text-base rounded-md question-textarea
                                     focus:outline-none focus:shadow-md hover:shadow-md "
-                                    placeholder="Type your Question Here.." value={question.title} onChange={changeHandler}
-                                >
-                                </textarea>
-                                <QuestionType  {...question} />
-                            </form>
-                        </div>
+                                placeholder="Type your Question Here.." value={question.title} onChange={changeHandler}
+                            >
+                            </textarea>
+                            {/* <QuestionType  {...question} /> */}
+                        </form>
+                    </div>
 
-                    </main>
+                </main>
 
-                    :
-                    <div>Not Found..</div>
-                }
-                <footer className="fixed bottom-0 border-t w-full p-3 tracking-wider uppercase text-sm">
-                    form made of love for you..
-                </footer>
-            </>
-
+                :
+                <div>Not Found..</div>
+            }
+            <footer className="fixed bottom-0 border-t w-full p-3 tracking-wider uppercase text-sm">
+                form made of love for you..
+            </footer>
         </>
     )
 }

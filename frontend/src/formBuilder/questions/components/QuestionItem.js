@@ -1,20 +1,19 @@
 import { useContext } from "react";
-import { NavLink, useParams, useRouteMatch } from "react-router-dom";
+import { NavLink, useRouteMatch } from "react-router-dom";
+import { Payload } from "../../../context/Payload";
 
-import { QuestionContext } from "../../../context/QuestionContext";
 import QTypeIcon from "../../../shared/collection/QTypeIcon";
-const QuestionItem = ({ questionId, title, index, type }) => {
-    const { showQuestion } = useContext(QuestionContext);
-    const { formId } = useParams();
-    const { url } = useRouteMatch();
+const QuestionItem = ({ q_id, title, type }) => {
+    const { showQuestion } = useContext(Payload);
 
+    const { url } = useRouteMatch();
     return (
         <>
             <div
                 className="hidden md:flex q-item text-sm pr-2 rounded m-2 shadow  whitespace-no-wrap min-h-12 items-center
                 border-2 cursor-pointer justify-between break-words relative"
             >
-                <div onClick={() => showQuestion(formId, questionId, type)} className="w-full py-1 flex items-center">
+                <div onClick={() => showQuestion(q_id, type)} className="w-full py-1 flex items-center">
                     <div className="px-1 mr-1 ">
                         <QTypeIcon type={type} />
                     </div>
@@ -38,7 +37,7 @@ const QuestionItem = ({ questionId, title, index, type }) => {
 
             <div className="md:hidden">
                 <div className="flex items-center my-1 border-b-2 shadow space-x-1 w-full text-sm font-medium">
-                    <NavLink className="flex items-center w-11/12" to={`${url}/${questionId}`}>
+                    <NavLink className="flex items-center w-11/12" to={`${url}/${q_id}`}>
                         <div className="flex bg-gray-200 p-2 m-1 rounded-full h-10 w-10 ">
                             <QTypeIcon type={type} />
                         </div>

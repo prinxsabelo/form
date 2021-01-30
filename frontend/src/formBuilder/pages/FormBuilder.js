@@ -6,9 +6,18 @@ import { useContext } from "react";
 import TabContent from "../components/tabs/TabContent";
 import QuestionList from "../questions/components/QuestionList";
 import NavBar from "../../shared/wrapper/NavBar";
+import { Payload } from "../../context/Payload";
 const FormBuilder = () => {
-    let { formId } = useParams();
+    let { form_id } = useParams();
+    const { getForm, form } = useContext(Payload);
+    if (!form) {
+        getForm(form_id);
+    }
+
+
+
     const { width } = useContext(ViewportContext);
+
     const breakpoint = 768;
 
     const mobileTabs = [
@@ -27,12 +36,12 @@ const FormBuilder = () => {
     return (
         <>
             {/* Redirect to fit in for mobile phones.. */}
-            {(window.location.pathname === `/form/${formId}/build` && width <= breakpoint) &&
-                <Redirect to={`/form/${formId}/questions`} />
+            {(window.location.pathname === `/form/${form_id}/build` && width <= breakpoint) &&
+                <Redirect to={`/form/${form_id}/questions`} />
             }
             {/* Redirect to fit in for large devices.. */}
-            {(window.location.pathname === `/form/${formId}/questions` && width > breakpoint) &&
-                <Redirect to={`/form/${formId}/build`} />
+            {(window.location.pathname === `/form/${form_id}/questions` && width > breakpoint) &&
+                <Redirect to={`/form/${form_id}/build`} />
             }
 
             {width > breakpoint && (
@@ -49,8 +58,7 @@ const FormBuilder = () => {
                     <main className="flex w-full  mt-1 px-1 absolute top-16 bottom-0 ">
 
                         <div className="w-1/3 " >
-
-                            <QuestionList />
+                            {(form && form.questions) ? <QuestionList questions={form.questions} /> : 'xxx'}
                         </div>
                         <div className="flex-auto bg-gray-100">
                             <TabContent />

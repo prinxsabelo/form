@@ -1,18 +1,18 @@
 import './Drawer.css';
 import ReactDOM from 'react-dom';
-import { QuestionContext } from '../../context/QuestionContext';
 import { useContext, useRef } from 'react';
 import QTypeIcon from './QTypeIcon';
 import { CSSTransition } from 'react-transition-group';
+import { Payload } from '../../context/Payload';
 const Drawer = props => {
     const nodeRef = useRef(null);
-    const { currentType, setCurrentType, questionTypes, setDrawerIsOpen, typeAction, addQuestion } = useContext(QuestionContext);
+    const { currentType, setCurrentType, questionTypes, setDrawerIsOpen, typeAction } = useContext(Payload);
 
     const setQType = (type) => {
 
         setDrawerIsOpen(false);
         if (typeAction === "new") {
-            addQuestion(type);
+            // addQuestion(type);
         } else {
             if (type !== currentType) {
                 setCurrentType(type);
@@ -35,7 +35,7 @@ const Drawer = props => {
                         <div key={qt.typeId} onClick={() => setQType(qt.type)}
                             className={`cursor-pointer flex space-x-4 border-r-2 m-2
                             shadow border-b-2 border-l-2 items-center hover:bg-gray-200 hover:text-gray-800
-                            ${(qt.type === currentType.type && typeAction !== 'new') ? 'bg-gray-800  text-yellow-100' : ''}`}
+                            ${(qt.type === currentType && typeAction !== 'new') ? 'bg-gray-800  text-yellow-100' : ''}`}
                         >
                             <div className="p-2 ">
                                 <QTypeIcon type={qt.type} />

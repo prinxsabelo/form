@@ -1,38 +1,38 @@
 import { useContext, useEffect, useState } from "react";
-import { QuestionContext } from "../../context/QuestionContext";
+import { Payload } from "../../context/Payload";
 import BuildHeader from "../components/BuildHeader";
 import QuestionType from "../questions/components/QuestionType";
 
 const DesktopBuild = () => {
-    const { developQuestion, currentType, questionDetail, questions } = useContext(QuestionContext);
-    let { formId, questionId } = questionDetail;
-    let q = (questions.find(x => x.formId === formId && x.questionId === questionId));
-    const [question, setQuestion] = useState({ questionId: "", formId: "", title: "", type: "" });
+    const { questionDetail, form, currentType, developQuestion } = useContext(Payload);
+    const { q_id } = questionDetail;
+
+    const [question, setQuestion] = useState();
     const changeHandler = e => {
-        let { questionId, formId, type } = q;
-        developQuestion({ title: e.target.value, questionId, formId, type });
+        // console.log(question);
+        const { type, properties } = question;
+        // let { questionId, form_id, type } = question;
+        developQuestion({ title: e.target.value, q_id, properties, type });
     }
     useEffect(() => {
-        console.log(currentType);
-        if (q) {
+        if (form && form.questions) {
+            let q = (form.questions.find(x => x.q_id === q_id));
             setQuestion(q);
-            if (currentType) {
-                setQuestion(q => ({ ...q, type: currentType }));
-                let { questionId, formId, title } = q;
-                if (q.type !== currentType) {
-                    developQuestion({ title, questionId, formId, type: currentType });
-                }
+            if (q && (q.type !== currentType)) {
+                let { q_id, title, properties } = q;
+                developQuestion({ title, q_id, properties, type: currentType });
             }
-
+        }
+        if (question) {
+            // console.log(question);
         }
 
-    }, [currentType, q, setQuestion, developQuestion])
-
+    }, [form, question, q_id, currentType, developQuestion]);
 
     return (
         <>
             <div className="hidden md:flex flex-col items-center pt-12 build shadow bg-white">
-                {(currentType && question.title) ?
+                {(currentType && (question && question.title)) ?
                     <>
                         <BuildHeader  {...question} />
                         <form className="flex flex-col md:justify-end  p-1 bg-white md:w-2/3 ">
@@ -41,7 +41,7 @@ const DesktopBuild = () => {
                                 onChange={changeHandler} placeholder="Type your Question Here.." value={question.title}
                             >
                             </textarea>
-                            {question.type && <QuestionType type={question.type} questionId={question.questionId} />}
+                            {(question && question.type) && <QuestionType {...question} />}
 
                         </form>
                     </>
